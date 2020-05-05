@@ -1,14 +1,12 @@
 package com.example.demo.dao;
 
 //IMPORTANT If your code is not working your imports might be incorrect
-
 import com.example.demo.entity.Employee;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-
 import javax.persistence.EntityManager;
 import java.util.List;
 
@@ -28,7 +26,7 @@ public class EmployeeDaoImpl implements EmployeeDAO {
     @Transactional //Defines the scope of a single database transaction.
     public List<Employee> findAll() {
         Session currentSession = entityManager.unwrap(Session.class);
-        Query<Employee> myQuery = currentSession.createQuery("from Employee");
+        Query<Employee> myQuery = currentSession.createQuery("from UserEmployee");
         List<Employee> employees = myQuery.getResultList();
         return employees;
     }
@@ -53,8 +51,8 @@ public class EmployeeDaoImpl implements EmployeeDAO {
     @Transactional //Defines the scope of a single database transaction.
     public void deleteById(int theId) {
         Session currentSession = entityManager.unwrap(Session.class);
-        Query<Employee> theQuery = currentSession.createQuery("delete from Employee where id=:employeeId");
-        theQuery.setParameter("employeeId", theId);
+        Query<Employee> theQuery = currentSession.createQuery("delete from UserEmployee where id=:ID");
+        theQuery.setParameter("ID", theId);
         theQuery.executeUpdate();
     }
 }
