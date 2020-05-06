@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-//This is to allow calls from React... NOT IMPORTANT RIGHT NOW
+//This is to allow calls from React
 @CrossOrigin(origins = { "http://localhost:3000"})
 @RestController
 public class EmployeeController {
@@ -15,21 +15,17 @@ public class EmployeeController {
 
     private final EmployeeDaoImpl employeeDaoImpl;
 
-    //Constructor Injection: this is telling the spring framework to wire up your
-    //dependencies for the employee DAO.
     @Autowired
     public EmployeeController(EmployeeDaoImpl employeeDaoImpl) {
         this.employeeDaoImpl = employeeDaoImpl;
     }
 
-    //This is a GET request that will read a list of all the employees.
     //http://localhost:8080/retrieveAllEmployees
     @GetMapping("/retrieveAllEmployees")
     public List<Employee> findAll() {
         return employeeDaoImpl.findAll();
     }
 
-    //This is a POST request to add a new employee.
     //http://localhost:8080/addEmployee
     @PostMapping("/addEmployee")
     public Employee addEmployee(@RequestBody Employee theEmployee) {
@@ -37,12 +33,10 @@ public class EmployeeController {
         //this is to force a save of new item .... instead of update
         theEmployee.setId(0);
 
-        //This will call the employeeDqoImpl.save method to save a new employee
         employeeDaoImpl.save(theEmployee);
         return theEmployee;
     }
 
-    //This is a PUT request to update an existing employee.
     //http://localhost:8080/updateEmployee
     @PutMapping("/updateEmployee")
     public Employee updateEmployee(@RequestBody Employee updateEmployee) {
@@ -51,7 +45,6 @@ public class EmployeeController {
         return updateEmployee;
     }
 
-    //This is a DELETE request to delete an existing employee.
     //http://localhost:8080/deleteEmployee/1
     @DeleteMapping("/deleteEmployee/{employeeId}")
     public String deleteEmployee(@PathVariable int employeeId) {
@@ -68,5 +61,4 @@ public class EmployeeController {
         employeeDaoImpl.deleteById(employeeId);
         return "Deleted employee id : " + employeeId;
     }
-
 }

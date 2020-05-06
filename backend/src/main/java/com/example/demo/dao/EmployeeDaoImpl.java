@@ -1,6 +1,5 @@
 package com.example.demo.dao;
 
-//IMPORTANT If your code is not working your imports might be incorrect
 import com.example.demo.entity.Employee;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
@@ -13,26 +12,24 @@ import java.util.List;
 @Repository
 public class EmployeeDaoImpl implements EmployeeDAO {
 
-    //Define field for entity manager
     private EntityManager entityManager;
 
-    //Set up constructor injection
     @Autowired
     public EmployeeDaoImpl(EntityManager entityManager) {
         this.entityManager = entityManager;
     }
 
     @Override
-    @Transactional //Defines the scope of a single database transaction.
+    @Transactional
     public List<Employee> findAll() {
         Session currentSession = entityManager.unwrap(Session.class);
-        Query<Employee> myQuery = currentSession.createQuery("from UserEmployee");
+        Query<Employee> myQuery = currentSession.createQuery("FROM Employee");
         List<Employee> employees = myQuery.getResultList();
         return employees;
     }
 
     @Override
-    @Transactional //Defines the scope of a single database transaction.
+    @Transactional
     public Employee findById(int theId) {
         Session currentSession = entityManager.unwrap(Session.class);
         Employee theEmployee = currentSession.get(Employee.class, theId);
@@ -40,7 +37,7 @@ public class EmployeeDaoImpl implements EmployeeDAO {
     }
 
     @Override
-    @Transactional //Defines the scope of a single database transaction.
+    @Transactional
     public void save(Employee theEmployee) {
         Session currentSession = entityManager.unwrap(Session.class);
         currentSession.saveOrUpdate(theEmployee);
@@ -48,11 +45,11 @@ public class EmployeeDaoImpl implements EmployeeDAO {
     }
 
     @Override
-    @Transactional //Defines the scope of a single database transaction.
+    @Transactional
     public void deleteById(int theId) {
         Session currentSession = entityManager.unwrap(Session.class);
-        Query<Employee> theQuery = currentSession.createQuery("delete from UserEmployee where id=:ID");
-        theQuery.setParameter("ID", theId);
+        Query<Employee> theQuery = currentSession.createQuery("delete FROM Employee WHERE id=:employeeID");
+        theQuery.setParameter("employeeID", theId);
         theQuery.executeUpdate();
     }
 }

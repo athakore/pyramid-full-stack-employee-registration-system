@@ -1,19 +1,18 @@
 package com.example.demo.entity;
-
 import javax.persistence.*;
 
 //Employee Entity
 @Entity //This will let Java know that this is an entity that we are going to map to a database table.
-@Table(name = "UserEmployee") //This is for the actual name of the database table we are mapping to the class.
+@Table(name = "employee") //This is for the actual name of the database table we are mapping to the class.
 public class Employee {
 
     //Define fields
     @Id //This will map the primary key.
     @GeneratedValue(strategy = GenerationType.IDENTITY) //This will auto increment your primary key
-    @Column(name = "ID") //This is mapping the primary key to the id column in the table.
+    @Column(name = "id") //This is mapping the primary key to the id column in the table.
     private int id;
 
-    @Column(name = "Date") //This will map the firstName field to the column named job_title in the table.
+    @Column(name = "date") //This will map the firstName field to the column named job_title in the table.
     private String date;
 
     @Column(name = "first_name") //This will map the firstName field to the column named first_name in the table.
@@ -28,16 +27,16 @@ public class Employee {
     @Column(name = "password") //This will map the password field to the column named password in the table.
     private String password;
 
-    @Column(name = "Phone_Number") //This will map the Phone Number field to the column named Phone Number in the table.
+    @Column(name = "phone_number") //This will map the Phone Number field to the column named Phone Number in the table.
     private String phoneNumber;
 
-    @Column(name = "Age") //This will map the Phone Number field to the column named Phone Number in the table.
+    @Column(name = "age") //This will map the Phone Number field to the column named Phone Number in the table.
     private int age;
 
-    @Column(name = "Gender") //This will map the Gender field to the column named Gender in the table.
+    @Column(name = "gender") //This will map the Gender field to the column named Gender in the table.
     private String gender;
 
-    @Column(name = "Administrator") //This will map the Administrator field to the column named Administrator in the table.
+    @Column(name = "administrator") //This will map the Administrator field to the column named Administrator in the table.
     private boolean administrator;
 
     //default constructor
