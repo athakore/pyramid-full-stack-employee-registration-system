@@ -36,6 +36,24 @@ public class EmployeeDaoImpl implements EmployeeDAO {
         return theEmployee;
     }
 
+//    @Override
+//    @Transactional
+//    public Employee findByEmail(String email){
+//        Session currentSession = entityManager.unwrap(Session.class);
+//        Employee theEmployee = currentSession.get(Employee.class, email);
+//        return theEmployee;
+//    }
+
+    @Override
+    @Transactional
+    public Employee findByEmail(String email){
+        Session currentSession = entityManager.unwrap(Session.class);
+        Query<Employee> theQuery = currentSession.createQuery("delete FROM Employee WHERE email=:employeeEmail");
+        List<Employee> temp = theQuery.getResultList();
+        return temp.get(0);
+    }
+
+
     @Override
     @Transactional
     public void save(Employee theEmployee) {

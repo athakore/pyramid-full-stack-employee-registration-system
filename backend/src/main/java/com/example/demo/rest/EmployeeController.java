@@ -26,6 +26,18 @@ public class EmployeeController {
         return employeeDaoImpl.findAll();
     }
 
+    @GetMapping("/email/{employeeEmail}")
+    public String findByEmail(@PathVariable("employeeEmail") String employeeEmail) {
+
+        Employee employee = employeeDaoImpl.findByEmail(employeeEmail);
+
+        if(employee == null) {
+            throw new RuntimeException("Email is not found : " + employeeEmail);
+        }
+
+        return employeeEmail;
+    }
+
     //http://localhost:8080/addEmployee
     @PostMapping("/addEmployee")
     public Employee addEmployee(@RequestBody Employee theEmployee) {
