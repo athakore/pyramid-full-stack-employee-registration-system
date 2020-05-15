@@ -23,7 +23,7 @@ public class EmployeeDaoImpl implements EmployeeDAO {
     @Transactional
     public List<Employee> findAll() {
         Session currentSession = entityManager.unwrap(Session.class);
-        Query<Employee> myQuery = currentSession.createQuery("FROM Employee");
+        Query<Employee> myQuery = currentSession.createQuery("from Employee");
         List<Employee> employees = myQuery.getResultList();
         return employees;
     }
@@ -67,8 +67,8 @@ public class EmployeeDaoImpl implements EmployeeDAO {
     @Transactional
     public void deleteById(int theId) {
         Session currentSession = entityManager.unwrap(Session.class);
-        Query<Employee> theQuery = currentSession.createQuery("delete FROM Employee WHERE id=:employeeID");
-        theQuery.setParameter("employeeID", theId);
+        Query<Employee> theQuery = currentSession.createQuery("delete from Employee where id=:ID");
+        theQuery.setParameter("ID", theId);
         theQuery.executeUpdate();
     }
 }
