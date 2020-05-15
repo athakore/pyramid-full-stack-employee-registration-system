@@ -13,15 +13,18 @@ class AddEmployee extends Component {
       password: '',
       phoneNumber: '',
       age: 0,
-      gender: '',
-      administrator: false
+      gender: "Male",
+      administrator: false,
+      isValid: true
     }
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleChange = this.handleChange.bind(this)
+    this.validateForm = this.validateForm.bind(this)
   }
 
   handleChange(event) {
     this.setState({[event.target.name]: event.target.value})
+    this.validateForm()
   }
 
   handleSubmit() {
@@ -35,9 +38,28 @@ class AddEmployee extends Component {
       phoneNumber: this.state.phoneNumber,
       age: this.state.age,
       gender: this.state.gender,
-      administrator: this.state.administrator
+      administrator: this.state.administrator === "on" ? "true" : "false"
     }
     EmployeeDataService.addEmployee(employee).then(this.props.history.push(`/adminConsole`))
+  }
+
+  validateForm() {
+    if(this.state.date.length === 0) this.setState({isValid: true})
+    else if(this.state.firstName.length === 0) this.setState({isValid: true})
+    else if(this.state.firstName.length === 0) this.setState({isValid: true})
+    else if(this.state.lastName.length === 0) this.setState({isValid: true})
+    else if(this.state.email.length === 0) this.setState({isValid: true})
+    else if(this.state.password.length === 0) this.setState({isValid: true})
+    else if(this.state.phoneNumber.length < 10) this.setState({isValid: true})
+    else if(this.state.age <= 0) this.setState({isValid: true})
+    else this.setState({isValid: false})
+    // return this.state.date.length === 0
+    // && this.state.firstName.length === 0
+    // && this.state.lastName.length === 0
+    // && this.state.email.length === 0
+    // && this.state.password.length === 0
+    // && this.state.phoneNumber.length < 10
+    // && this.state.age === 0
   }
 
     render() {
@@ -66,7 +88,7 @@ class AddEmployee extends Component {
                         </div>
                         <div>
                             <label>Password:</label>
-                            <input className="form-control" type="text" name="password" onChange={this.handleChange}></input>
+                            <input className="form-control" type="password" name="password" onChange={this.handleChange}></input>
                         </div>
                         <div>
                             <label>Phone Number:</label>
@@ -78,7 +100,7 @@ class AddEmployee extends Component {
                         </div>
                         <div>
                             <label>Gender:</label>
-                            <select className="form-control" name="gender" onChange={this.handleChange}>
+                            <select className="form-control" name="gender" value={this.state.gender} onChange={this.handleChange}>
                               <option value="Male">Male</option>
                               <option value="Female">Female</option>
                             </select>
@@ -87,7 +109,7 @@ class AddEmployee extends Component {
                             <label>Administrator:</label>
                             <input className="form-control" type="checkbox" name="administrator" checked={this.state.administrator} onChange={this.handleChange}></input>
                         </div><br/><br/>
-                        <button className="btn btn-success" type="submit">Submit</button><br/><br/>
+                      <button className="btn btn-success" type="submit" disabled={this.state.isValid}>Submit</button><br/><br/>
                     </form>
                 </div>
             </div>
