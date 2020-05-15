@@ -6,7 +6,6 @@ class AdminConsole extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      user: this.props.user,
       employees: [],
       message: null
     }
