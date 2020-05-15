@@ -12,9 +12,9 @@ class AddEmployee extends Component {
       email: '',
       password: '',
       phoneNumber: '',
-      age: null,
+      age: 0,
       gender: '',
-      administrator: null
+      administrator: false
     }
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleChange = this.handleChange.bind(this)
@@ -37,7 +37,7 @@ class AddEmployee extends Component {
       gender: this.state.gender,
       administrator: this.state.administrator
     }
-    EmployeeDataService.addEmployee(employee).then(this.props.history.push(`/`))
+    EmployeeDataService.addEmployee(employee).then(this.props.history.push(`/adminConsole`))
   }
 
     render() {
@@ -50,7 +50,7 @@ class AddEmployee extends Component {
                     <form onSubmit={this.handleSubmit}>
                         <div className="form-group">
                             <label>Date:</label>
-                            <input className="form-control" type="text" name="date" onChange={this.handleChange}></input>
+                            <input className="form-control" type="date" name="date" onChange={this.handleChange}></input>
                         </div>
                         <div>
                             <label>First Name:</label>
@@ -74,15 +74,18 @@ class AddEmployee extends Component {
                         </div>
                         <div>
                             <label>Age:</label>
-                            <input className="form-control" type="text" name="age" onChange={this.handleChange}></input>
+                            <input className="form-control" type="number" name="age" onChange={this.handleChange}></input>
                         </div>
                         <div>
                             <label>Gender:</label>
-                            <input className="form-control" type="text" name="gender" onChange={this.handleChange}></input>
+                            <select className="form-control" name="gender" onChange={this.handleChange}>
+                              <option value="Male">Male</option>
+                              <option value="Female">Female</option>
+                            </select>
                         </div>
                         <div>
                             <label>Administrator:</label>
-                            <input className="form-control" type="text" name="administrator" onChange={this.handleChange}></input>
+                            <input className="form-control" type="checkbox" name="administrator" checked={this.state.administrator} onChange={this.handleChange}></input>
                         </div><br/><br/>
                         <button className="btn btn-success" type="submit">Submit</button><br/><br/>
                     </form>

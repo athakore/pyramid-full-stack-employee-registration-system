@@ -26,7 +26,7 @@ class AdminConsole extends Component {
   deleteEmployeeClicked(id, email) {
     EmployeeDataService.deleteEmployee(id).then(response => {
       this.setState({message: `Deleted Employee: ${email}`})
-      alert(this.this.state.message)
+      alert(this.state.message)
       this.refreshEmployeeRegistry()
     })
   }
@@ -39,7 +39,7 @@ class AdminConsole extends Component {
     return(
       <div className="container">
         <h1 style={{textAlign:"center"}}>Employee Registry</h1><br></br>
-        <div className="imax" style={{backgroundColor: "gray", color: "white"}}>
+        <div className="jumbotron" style={{backgroundColor: "gray", color: "white"}}>
           <table className="table">
             <thead>
               <tr style={{textAlign: "center", color: "black"}}>
@@ -69,7 +69,7 @@ class AdminConsole extends Component {
                   <td>{employees.phoneNumber}</td>
                   <td>{employees.age}</td>
                   <td>{employees.gender}</td>
-                  <td>{employees.administrator === 1 ? `Administrator` : `User`}</td>
+                  <td>{employees.administrator === true ? `Administrator` : `User`}</td>
                   <td><button className="btn btn-warning" onClick={() => this.deleteEmployeeClicked(employees.id, employees.email)}>Delete</button></td>
                 </tr>
               )

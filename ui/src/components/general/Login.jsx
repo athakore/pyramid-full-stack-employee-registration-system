@@ -1,44 +1,65 @@
-import React, { useState } from "react";
+import React, { Component } from "react";
+import { withRouter } from "react-router-dom";
 import { Button, FormGroup, FormControl, FormLabel } from "react-bootstrap";
+import EmployeeDataService from '../../service/EmployeeDataService'
 //import "./Login.css";
 
-export default function Login() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-
-  function validateForm() {
-    return email.length > 0 && password.length > 0;
+class Login extends Component{
+  constructor(props) {
+    super(props)
+    this.state = {
+      email: "",
+      password: "",
+      error: ""
+    }
+    this.validateForm = this.validateForm.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
 
-  function handleSubmit(event) {
-    event.preventDefault();
+  validateForm() {
+    return this.state.email.length > 0 && this.state.password.length > 0;
   }
 
-  return (
-    <div className="Login">
-      <form onSubmit={handleSubmit}>
-        <FormGroup controlId="email" bsSize="large">
-          <FormLabel>Email</FormLabel>
-          <FormControl
-            autoFocus
-            type="email"
-            value={email}
-            onChange={e => setEmail(e.target.value)}
-          />
-        </FormGroup>
-        <FormGroup controlId="password" bsSize="large">
-          <FormLabel>Password</FormLabel>
-          <FormControl
-            value={password}
-            onChange={e => setPassword(e.target.value)}
-            type="password"
-          />
-        </FormGroup>
-        <Button block bsSize="large" disabled={!validateForm()} type="submit">
-          Login
-        </Button>
-      </form>
-    </div>
-  );
+  handleSubmit() {
+    EmployeeDataService.retrievePasswordByEmail(this.state.email).then(response => response.status === 200 ? (response.data === this.state.password ? this.props.history.push("/adminConsole") : this.props.history.push("/")) : this.props.history.push("/"))
+  }
+
+  handleChange(event) {
+    this.setState({[event.target.name]: event.target.value})
+  }
+
+  render() {
+    return (
+      <div className="Login">
+        <form onSubmit={this.handleSubmit}>
+          <FormGroup controlId="email" bssize="large">
+            <FormLabel>Email</FormLabel>
+            <FormControl
+              autoFocus
+              type="email"
+              value={this.state.email}
+              name="email"
+              onChange={this.handleChange}
+            />
+          </FormGroup>
+          <FormGroup controlId="password" bssize="large">
+            <FormLabel>Password</FormLabel>
+            <FormControl
+              type="password"
+              value={this.state.password}
+              name="password"
+              onChange={this.handleChange}
+            />
+          </FormGroup>
+          <h3 className="Error" style={{color: "red"}}>{this.state.error}</h3>
+          <Button block bssize="large" disabled={!this.validateForm} type="submit">
+            Login
+          </Button>
+        </form>
+      </div>
+    )
+  }
 }
-//export default Login;
+
+export default withRouter(Login);
