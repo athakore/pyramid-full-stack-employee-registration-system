@@ -44,15 +44,15 @@ class AddEmployee extends Component {
   }
 
   validateForm() {
-    if(this.state.date.length === 0) this.state.isValid = true
-    else if(this.state.firstName.length === 0) this.state.isValid = true
-    else if(this.state.firstName.length === 0) this.state.isValid = true
-    else if(this.state.lastName.length === 0) this.state.isValid = true
-    else if(this.state.email.length === 0) this.state.isValid = true
-    else if(this.state.password.length === 0) this.state.isValid = true
-    else if(this.state.phoneNumber.length < 10) this.state.isValid = true
-    else if(this.state.age <= 0) this.state.isValid = true
-    else this.state.isValid = false
+    if(this.state.date.length === 0) this.setState({isValid: true})
+    else if(this.state.firstName.length === 0) this.setState({isValid: true})
+    else if(this.state.firstName.length === 0) this.setState({isValid: true})
+    else if(this.state.lastName.length === 0) this.setState({isValid: true})
+    else if(this.state.email.length === 0) this.setState({isValid: true})
+    else if(this.state.password.length === 0) this.setState({isValid: true})
+    else if(this.state.phoneNumber.length < 10) this.setState({isValid: true})
+    else if(this.state.age <= 0) this.setState({isValid: true})
+    else this.setState({isValid: false})
     // return this.state.date.length === 0
     // && this.state.firstName.length === 0
     // && this.state.lastName.length === 0
