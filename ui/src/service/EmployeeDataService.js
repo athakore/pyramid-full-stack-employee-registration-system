@@ -11,15 +11,15 @@ class EmployeeDataService {
   }
 
   addEmployee() {
-    return axios.get(`http://localhost:8080/addEmployee`)
+    return axios.post(`http://localhost:8080/addEmployee`)
   }
 
   updateEmployee() {
-    return axios.get(`http://localhost:8080/updateEmployee`)
+    return axios.put(`http://localhost:8080/updateEmployee`)
   }
 
   deleteEmployee(id) {
-    return axios.get(`http://localhost:8080/deleteEmployee/${id}`)
+    return axios.delete(`http://localhost:8080/deleteEmployee/${id}`)
   }
 }
 

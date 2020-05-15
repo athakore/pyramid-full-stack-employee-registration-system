@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { withRouter } from 'react-router-dom'
 import EmployeeDataService from '../../service/EmployeeDataService'
 
 class AdminConsole extends Component {
@@ -31,7 +32,7 @@ class AdminConsole extends Component {
   }
 
   addEmployeeClicked() {
-    this.this.props.history.push(`/addEmployee/`)
+    this.props.history.push(`/addEmployee/`)
   }
 
   render() {
@@ -85,4 +86,4 @@ class AdminConsole extends Component {
   }
 }
 
-export default AdminConsole;
+export default withRouter(AdminConsole);

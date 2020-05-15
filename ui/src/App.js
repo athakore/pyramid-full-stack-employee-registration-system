@@ -1,12 +1,12 @@
 import React from 'react';
 import'./bootstrap.css';
 import './App.css';
-import AdminConsole from './components/general/AdminConsole';
+import Router from './components/general/Router';
 
 function App() {
   return (
     <div className="App">
-      <AdminConsole/>
+        <Router/>
     </div>
   );
 }
