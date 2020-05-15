@@ -29,7 +29,7 @@ public class EmployeeController {
     @GetMapping("/email/{employeeEmail}")
     public String findPasswordByEmail(@PathVariable("employeeEmail") String employeeEmail) {
 
-        Employee employee = employeeDaoImpl.findByEmail(employeeEmail);
+        Employee employee = employeeDaoImpl.findPasswordByEmail(employeeEmail);
 
         if(employee == null) {
             throw new RuntimeException("Email is not found : " + employeeEmail);
