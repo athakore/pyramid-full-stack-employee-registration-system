@@ -24,20 +24,20 @@ class AdminConsole extends Component {
 
   deleteEmployeeClicked(id, email) {
     EmployeeDataService.deleteEmployee(id).then(response => {
-      this.setState({message: `Deleted Employee: ${email}`})
+      this.setState({message: "Deleted Employee: ${email}"})
       alert(this.state.message)
       this.refreshEmployeeRegistry()
     })
   }
 
   addEmployeeClicked() {
-    this.props.history.push(`/addEmployee/`)
+    this.props.history.push("/addEmployee/")
   }
 
   render() {
     return(
       <div className="container">
-        <h1 style={{textAlign:"center"}}>Employee Registry</h1><br></br>
+        <h1 style={{textAlign:"center"}}>Admin Console</h1><br></br>
         <div className="jumbotron" style={{backgroundColor: "gray", color: "white"}}>
           <table className="table">
             <thead>
@@ -68,16 +68,21 @@ class AdminConsole extends Component {
                   <td>{employees.phoneNumber}</td>
                   <td>{employees.age}</td>
                   <td>{employees.gender}</td>
-                  <td>{employees.administrator === true ? `Administrator` : `User`}</td>
+                  <td>{employees.administrator === true ? "Administrator" : "User"}</td>
                   <td><button className="btn btn-warning" onClick={() => this.deleteEmployeeClicked(employees.id, employees.email)}>Delete</button></td>
                 </tr>
               )
             }
             </tbody>
           </table>
-          <div className="row">
+          <div className="row"style={{width: "100%"}}>
             <br/>
-            <button className="btn btn-success" onClick={this.addEmployeeClicked}>Add Employee</button>
+            <div style={{width:"50%"}}>
+              <button className="btn btn-success" onClick={this.addEmployeeClicked}>Add Employee</button>
+            </div>
+            <div style={{float: "right", width:"50%"}}>
+              <button className="btn btn-warning" onClick={() =>this.props.history.push("/")}>Logout</button>
+            </div>
           </div>
         </div>
       </div>

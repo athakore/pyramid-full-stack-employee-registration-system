@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
 import EmployeeDataService from '../../service/EmployeeDataService'
 
-class AddEmployee extends Component {
+class Registration extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -38,9 +38,9 @@ class AddEmployee extends Component {
       phoneNumber: this.state.phoneNumber,
       age: this.state.age,
       gender: this.state.gender,
-      administrator: this.state.administrator === "on" ? "true" : "false"
+      administrator: this.state.administrator === "false"
     }
-    EmployeeDataService.addEmployee(employee).then(this.props.history.push(`/adminConsole`))
+    EmployeeDataService.addEmployee(employee).then(this.props.history.push(`/`))
   }
 
   validateForm() {
@@ -66,7 +66,7 @@ class AddEmployee extends Component {
         return(
             <div>
                 <div className="jumbotron" style={{backgroundColor: "gray"}}>
-                <h3 style={{textAlign: "center"}}>Add Employee</h3>
+                <h3 style={{textAlign: "center"}}>Register</h3>
                 </div>
                 <div className="container">
                     <form onSubmit={this.handleSubmit}>
@@ -104,13 +104,9 @@ class AddEmployee extends Component {
                               <option value="Male">Male</option>
                               <option value="Female">Female</option>
                             </select>
-                        </div>
-                        <div>
-                            <label>Administrator:</label>
-                            <input className="form-control" type="checkbox" name="administrator" checked={this.state.administrator} onChange={this.handleChange}></input>
                         </div><br/><br/>
                       <button className="btn btn-success" type="submit" disabled={this.state.isValid}>Submit</button>&ensp;
-                      <button className="btn btn-warning" name="back" onClick={() =>this.props.history.push("/adminConsole")}>Back</button><br/><br/>
+                      <button className="btn btn-warning" name="back" onClick={() =>this.props.history.push("/")}>Back</button><br/><br/>
                     </form>
                 </div>
             </div>
@@ -118,4 +114,4 @@ class AddEmployee extends Component {
     }
 }
 
-export default withRouter(AddEmployee)
+export default withRouter(Registration)
