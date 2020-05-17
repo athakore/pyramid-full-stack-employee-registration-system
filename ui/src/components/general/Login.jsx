@@ -31,9 +31,14 @@ class Login extends Component{
     EmployeeDataService.retrievePasswordByEmail(this.state.email).then(
       response =>{this.setState({passwordCheck: response.data, statusCheck: response.status})},
       reason =>{this.setState({error:"The email and/or password you have entered is not correct, please try again."})}
+    ).then(()=>
+      {
+        if(this.state.password !== this.state.passwordCheck) this.setState({error:"The email and/or password you have entered is not correct, please try again."})
+        else {
+          EmployeeDataService.retrieveAdminByEmail(this.state.email).then(response =>{response.data === true ? this.props.history.push("/adminConsole/", {email: this.state.email}) : this.props.history.push("/employee/", {email: this.state.email})})
+        }
+      }
     );
-    if(this.state.password !== this.state.passwordCheck) this.setState({error:"The email and/or password you have entered is not correct, please try again."})
-    else this.props.history.push("/adminConsole/")
   }
 
   handleChange(event) {
@@ -43,32 +48,40 @@ class Login extends Component{
 
   render() {
     return (
-      <div className="Login">
-        <form onSubmit={this.handleSubmit}>
-          <FormGroup controlId="email" bssize="large">
-            <FormLabel>Email</FormLabel>
-            <FormControl
-              autoFocus
-              type="email"
-              value={this.state.email}
-              name="email"
-              onChange={this.handleChange}
-            />
-          </FormGroup>
-          <FormGroup controlId="password" bssize="large">
-            <FormLabel>Password</FormLabel>
-            <FormControl
-              type="password"
-              value={this.state.password}
-              name="password"
-              onChange={this.handleChange}
-            />
-          </FormGroup>
-          <b className="error" style={{color: "red"}}>{this.state.error}</b>
-          <Button block bssize="large" disabled={this.state.isValid} type="submit">
-            Login
-          </Button>
-        </form>
+      <div>
+        <div className="jumbotron" style={{backgroundColor: "gray"}}>
+          <h3 style={{textAlign: "center"}}>Login</h3>
+        </div>
+        <div className="Login">
+          <form onSubmit={this.handleSubmit}>
+            <FormGroup controlId="email">
+              <FormLabel>Email</FormLabel>
+              <FormControl
+                autoFocus
+                type="email"
+                value={this.state.email}
+                name="email"
+                onChange={this.handleChange}
+              />
+            </FormGroup>
+            <FormGroup controlId="password">
+              <FormLabel>Password</FormLabel>
+              <FormControl
+                type="password"
+                value={this.state.password}
+                name="password"
+                onChange={this.handleChange}
+              />
+            </FormGroup>
+            <b className="error" style={{color: "red"}}>{this.state.error}</b>
+            <Button block disabled={this.state.isValid} type="submit">
+              Login
+            </Button>
+            <Button block name="registration" onClick={() =>this.props.history.push("/register/")} >
+              Register
+            </Button>
+          </form>
+        </div>
       </div>
     )
   }
