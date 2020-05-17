@@ -34,7 +34,7 @@ class AdminConsole extends Component {
   }
 
   addEmployeeClicked() {
-    this.props.history.push("/addEmployee/")
+    this.props.history.push("/addEmployee/",{user: this.state.user})
   }
 
   checkUser(email) {

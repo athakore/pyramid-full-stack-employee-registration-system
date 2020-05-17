@@ -15,7 +15,8 @@ class AddEmployee extends Component {
       age: 0,
       gender: "Male",
       administrator: false,
-      isValid: true
+      isValid: true,
+      user: this.props.location.state.user
     }
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleChange = this.handleChange.bind(this)
@@ -40,7 +41,7 @@ class AddEmployee extends Component {
       gender: this.state.gender,
       administrator: this.state.administrator === "on" ? "true" : "false"
     }
-    EmployeeDataService.addEmployee(employee).then(this.props.history.push(`/adminConsole`))
+    EmployeeDataService.addEmployee(employee).then(this.props.history.push(`/adminConsole`, {email: this.state.user}))
   }
 
   validateForm() {
@@ -110,7 +111,7 @@ class AddEmployee extends Component {
                             <input className="form-control" type="checkbox" name="administrator" checked={this.state.administrator} onChange={this.handleChange}></input>
                         </div><br/><br/>
                       <button className="btn btn-success" type="submit" disabled={this.state.isValid}>Submit</button>&ensp;
-                      <button className="btn btn-warning" name="back" onClick={() =>this.props.history.push("/adminConsole")}>Back</button><br/><br/>
+                      <button className="btn btn-warning" name="back" onClick={() =>this.props.history.push("/adminConsole", {email: this.state.user})}>Back</button><br/><br/>
                     </form>
                 </div>
             </div>
