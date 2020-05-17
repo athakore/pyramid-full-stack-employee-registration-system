@@ -24,7 +24,7 @@ class AdminConsole extends Component {
 
   deleteEmployeeClicked(id, email) {
     EmployeeDataService.deleteEmployee(id).then(response => {
-      this.setState({message: "Deleted Employee: ${email}"})
+      this.setState({message: `Deleted Employee: ${email}`})
       alert(this.state.message)
       this.refreshEmployeeRegistry()
     })
