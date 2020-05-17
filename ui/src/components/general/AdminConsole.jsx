@@ -6,12 +6,15 @@ class AdminConsole extends Component {
   constructor(props) {
     super(props)
     this.state = {
+      user: this.props.location.state.email,
       employees: [],
-      message: null
+      message: null,
+      isUser: false
     }
     this.refreshEmployeeRegistry = this.refreshEmployeeRegistry.bind(this)
     this.deleteEmployeeClicked = this.deleteEmployeeClicked.bind(this)
     this.addEmployeeClicked = this.addEmployeeClicked.bind(this)
+    this.checkUser= this.checkUser.bind(this)
   }
 
   componentDidMount() {
@@ -32,6 +35,10 @@ class AdminConsole extends Component {
 
   addEmployeeClicked() {
     this.props.history.push("/addEmployee/")
+  }
+
+  checkUser(email) {
+    return this.state.user === email
   }
 
   render() {
@@ -69,7 +76,7 @@ class AdminConsole extends Component {
                   <td>{employees.age}</td>
                   <td>{employees.gender}</td>
                   <td>{employees.administrator === true ? "Administrator" : "User"}</td>
-                  <td><button className="btn btn-warning" onClick={() => this.deleteEmployeeClicked(employees.id, employees.email)}>Delete</button></td>
+                  <td><button className="btn btn-warning" onClick={() => this.deleteEmployeeClicked(employees.id, employees.email)} disabled={this.checkUser(employees.email)}>Delete</button></td>
                 </tr>
               )
             }
