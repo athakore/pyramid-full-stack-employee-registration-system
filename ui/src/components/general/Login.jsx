@@ -31,9 +31,14 @@ class Login extends Component{
     EmployeeDataService.retrievePasswordByEmail(this.state.email).then(
       response =>{this.setState({passwordCheck: response.data, statusCheck: response.status})},
       reason =>{this.setState({error:"The email and/or password you have entered is not correct, please try again."})}
+    ).then(()=>
+      {
+        if(this.state.password !== this.state.passwordCheck) this.setState({error:"The email and/or password you have entered is not correct, please try again."})
+        else {
+          EmployeeDataService.retrieveAdminByEmail(this.state.email).then(response =>{response.data === true ? this.props.history.push("/adminConsole/") : this.props.history.push("/register/")})
+        }
+      }
     );
-    if(this.state.password !== this.state.passwordCheck) this.setState({error:"The email and/or password you have entered is not correct, please try again."})
-    else this.props.history.push("/adminConsole/")
   }
 
   handleChange(event) {

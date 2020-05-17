@@ -7,7 +7,15 @@ class EmployeeDataService {
   }
 
   retrievePasswordByEmail(email) {
-    return axios.get(`http://localhost:8080/email/${email}`)
+    return axios.get(`http://localhost:8080/password/${email}`)
+  }
+
+  retrieveAdminByEmail(email) {
+    return axios.get(`http://localhost:8080/admin/${email}`)
+  }
+
+  retrieveEmployeeByEmail(email) {
+    return axios.get(`http://localhost:8080/employee/${email}`)
   }
 
   addEmployee(employee) {
